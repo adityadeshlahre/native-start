@@ -7,10 +7,10 @@ const signup =
   async () => {
     const user = await prisma.user.create({
       data: {
-        name: name,
+        // name: name,
         username: username,
         email: email,
-        password: password,
+        // password: password,
       },
     });
 

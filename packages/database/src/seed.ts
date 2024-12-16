@@ -5,10 +5,10 @@ import prisma from "./client";
 
 const DEFAULT_USERS: Partial<User>[] = [
   {
-    name: "Tim Apple",
+    username: "Tim Apple",
     email: "tim@apple.com",
-    username: "timapple",
-    password: "password",
+    // username: "timapple",
+    // password: "password",
   },
 ] as Array<Partial<User>>;
 

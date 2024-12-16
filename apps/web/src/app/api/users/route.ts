@@ -5,7 +5,7 @@ import { UserSchema } from "@repo/types";
 
 export async function GET(): Promise<NextResponse> {
   const user = await prisma.user.findFirst({});
-  return NextResponse.json({ name: user?.name, email: user?.email });
+  return NextResponse.json({ username: user?.username, email: user?.email });
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
@@ -13,10 +13,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const user = await prisma.user.create({
     data: {
-      name: parsedBody.name,
+      // name: parsedBody.name,
       username: parsedBody.username,
       email: parsedBody.email,
-      password: parsedBody.password,
+      // password: parsedBody.password,
     },
   });
 

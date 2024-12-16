@@ -1,0 +1,35 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.17.0",
+    "@repo/database": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}

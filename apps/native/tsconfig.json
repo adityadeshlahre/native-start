@@ -1,0 +1,6 @@
+{
+  "extends": "@repo/typescript-config/expo-app.json",
+  "compilerOptions": {
+    "strict": true
+  }
+}

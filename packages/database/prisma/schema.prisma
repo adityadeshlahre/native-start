@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x","debian-openssl-1.0.x"]
 }
 
 datasource db {
@@ -16,9 +16,20 @@ datasource db {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
   username      String?
   email         String?   @unique
-  emailVerified DateTime?
-  password      String?
+}
+
+model Wallet {
+  id String @id @default(cuid())
+  userId String
+  balance Float
+}
+
+model Transaction {
+  id String @id @default(cuid())
+  walletId String
+  amount Float
+  type String
+  createdAt DateTime @default(now())
 }
