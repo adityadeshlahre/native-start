@@ -7,19 +7,12 @@ import { FlatCompat } from "@eslint/eslintrc";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
 });
 
-export default [...compat.extends("@repo/eslint-config/server.js"), {
-    languageOptions: {
-        parser: tsParser,
-        ecmaVersion: 5,
-        sourceType: "script",
+import baseJsConfig from "@repo/eslint-config/base.js";
 
-        parserOptions: {
-            project: true,
-        },
-    },
-}];
+/** @type {import("eslint").Linter.Config} */
+export default [...compat.config(baseJsConfig)];

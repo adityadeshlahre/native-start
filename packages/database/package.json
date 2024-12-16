@@ -13,20 +13,20 @@
     "dev": "tsup src/* --watch",
     "format": "prisma format",
     "generate": "prisma generate",
-    "lint": "eslint ./src",
+    "lint": "eslint src/",
     "prebuild": "pnpm run generate",
     "predev": "pnpm run generate",
     "studio": "prisma studio"
   },
   "dependencies": {
-    "@prisma/client": "^6.0.1"
+    "@prisma/client": "^6.1.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^22.10.2",
     "eslint": "^9.17.0",
-    "prisma": "^6.0.1",
+    "prisma": "^6.1.0",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
