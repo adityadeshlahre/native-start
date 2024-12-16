@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: next-start-full:latest
+    container_name: next-start-full
+    expose:
+      - 3000
+      - 3001
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ./apps/web/:/app/apps/web
+      - ./apps/docs/:/app/apps/docs
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=${PORT}
+      - DOCS_PORT=${DOCS_PORT}

@@ -1,0 +1,8 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "rootDir": "."
+  },
+  "include": ["src", ".eslintrc.js", "index.ts"],
+  "exclude": ["node_modules"]
+}

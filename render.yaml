@@ -1,0 +1,47 @@
+services:
+  - type: web
+    env: node
+    name: next-start
+    repo: https://github.com/adityadeshlahre/next-start.git
+    buildFilter:
+      paths:
+        - apps/backend/**
+    buildCommand: pnpm && pnpm build --filter=docs
+    startCommand: cd apps/web; pnpm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fh-prod-db1
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: fh-prod-redis1
+          type: redis
+          property: connectionString
+
+  - type: web
+    env: static
+    name: next-docs
+    repo: https://github.com/adityadeshlahre/next-start.git
+    buildFilter:
+      paths:
+        - apps/frontend/**
+    buildCommand: pnpm && pnpm build --filter=web
+    staticPublishPath: ./apps/frontend/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: REACT_APP_GRAPHQL_HOST
+        fromService:
+          name: fh-prod-backend1
+          type: web
+          property: host
+
+  - type: redis
+    name: fh-prod-redis1
+    ipAllowList: []
+
+databases:
+  - name: fh-prod-db1

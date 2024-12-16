@@ -1,0 +1,70 @@
+FROM node:22-alpine AS base
+
+FROM base AS builder
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PATH}:${PNPM_HOME}"
+# Set working directory
+WORKDIR /app
+RUN npm install --global pnpm@latest
+RUN pnpm add -g turbo nodemon
+COPY . .
+RUN turbo prune --scope=docs --docker
+
+# Add lockfile and package.json's of isolated subworkspace
+FROM base AS installer
+
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PATH}:${PNPM_HOME}"
+
+RUN npm install --global pnpm@latest 
+
+RUN pnpm add -g turbo nodemon dotenv dotenv-cli
+
+WORKDIR /app
+
+# First install dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+
+RUN pnpm i
+
+RUN pnpm turbo run build --filter=docs...
+
+FROM base AS runner
+
+ENV NEXT_TELEMETRY_DISABLED=1
+
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PATH}:${PNPM_HOME}"
+
+RUN npm install --global pnpm@latest
+
+RUN pnpm add -g turbo concurrently nodemon dotenv dotenv-cli prisma
+
+WORKDIR /app
+
+# COPY --from=installer /app .
+COPY --from=installer /app/apps/docs/.next/standalone ./
+COPY --from=installer /app/apps/docs/.next/static ./apps/docs/.next/static
+COPY --from=installer /app/apps/docs/.next/static ./apps/docs/.next/standalone/apps/docs/.next/static
+COPY --from=installer /app/apps/docs/public ./apps/docs/public
+COPY --from=installer /app/apps/docs/public ./apps/docs/.next/standalone/apps/docs/public
+
+ENV PORT=3001
+EXPOSE 3001
+ENV HOSTNAME=0.0.0.0
+ENV NODE_ENV production
+
+# CMD ["sh", "-c", "pnpm db:generate && pnpm db:push && pnpm db:resolve && pnpm db:deploy"]
+# CMD ["sh", "-c", "cd apps/docs && pnpm dev"]
+# CMD ["node", "apps/docs/server.js"]
+# CMD ["pnpm", "start"]
+# CMD node apps/docs/server.js
+# CMD HOSTNAME="0.0.0.0" node ./apps/docs/server.js
+# CMD ["node", "./apps/docs/.next/standalone/apps/docs/server.js"]
+CMD ["node", "./apps/docs/server.js"]
+# CMD node server.js
+# CMD ["sh", "-c", "pnpm run db:deploy && node ./apps/docs/server.js"]

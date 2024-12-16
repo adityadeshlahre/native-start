@@ -1,0 +1,64 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    image: next-start-web-dev:latest
+    container_name: next-start-web-dev
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web/:/app/apps/web
+    environment:
+      - DATABASE_URL=postgresql://opensource:sourceopen@postgres:5432/fasoshop
+      - PORT=3000
+      - UI_PORT=5173
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
+  docs:
+    build:
+      context: .
+      dockerfile: ./apps/docs/Dockerfile
+    image: next-start-docs-dev:latest
+    container_name: next-start-docs-dev
+    expose:
+      - 3001
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./apps/docs/:/app/apps/docs
+    environment:
+      - DATABASE_URL=postgresql://opensource:sourceopen@postgres:5432/fasoshop
+      - PORT=3001
+      - UI_PORT=5173
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
+  postgres:
+    image: postgres:latest
+    container_name: opensource-temp
+    environment:
+      POSTGRES_USER: opensource
+      POSTGRES_PASSWORD: opensource
+      POSTGRES_DB: authrole
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge

@@ -1,0 +1,59 @@
+{
+  "private": true,
+  "prisma": {
+    "schema": "packages/database/prisma/schema.prisma",
+    "seed": "tsx packages/database/src/seed.ts"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "db:migrate:dev": "turbo run db:migrate:dev",
+    "db:migrate:deploy": "turbo run db:migrate:deploy",
+    "db:seed": "turbo run db:seed",
+    "generate": "turbo run generate",
+    "db:generate": "prisma generate --schema=./packages/database/prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=./packages/database/prisma/schema.prisma",
+    "db:push": "prisma db push --schema=./packages/database/prisma/schema.prisma --skip-generate --accept-data-loss",
+    "db:migrate": "prisma migrate dev --schema=./packages/database/prisma/schema.prisma",
+    "db:resolve": "prisma migrate resolve --schema=./packages/database/prisma/schema.prisma --applied 20240906204550_init",
+    "db:deploy": "prisma migrate deploy --schema=./packages/database/prisma/schema.prisma",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "type-check": "turbo type-check",
+    "clean": "rimraf ./node_modules ./packages/ui/node_modules ./apps/node_modules ./apps/docs/node_modules ./apps/web/node_modules ./packages/database/node_modules ./packages/types/node_modules ./packages/config-tailwind/node_modules ./packages/config-eslint/node_modules ./packages/config-typescript/node_modules ./pnpm-lock.yaml",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky",
+    "package:update": "pnpm update --latest"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^6.0.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "prisma": "6.0.1",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2",
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "pnpm@9.14.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@prisma/client": "6.0.1"
+  },
+  "lint-staged": {
+    "(apps|packages)/**/*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "packages/database/prisma/schema.prisma": [
+      "prisma format"
+    ]
+  },
+  "name": "next-start"
+}

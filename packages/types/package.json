@@ -1,0 +1,14 @@
+{
+  "name": "@repo/types",
+  "version": "1.0.0",
+  "main": "./index.ts",
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}
