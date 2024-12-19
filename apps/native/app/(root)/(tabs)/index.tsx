@@ -7,7 +7,7 @@ export default function Index() {
       <Link href="/explore">Explore</Link>
       <Link href="/profile">Profile</Link>
       <Link href="/wallet/1">Wallet</Link>
-      <Text className="text-2xl text-teal-600">Tabs</Text>
+      <Text className="text-2xl text-teal-600 font-bold">Tabs</Text>
     </View>
   );
 }
