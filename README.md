@@ -38,6 +38,7 @@ packages{folder}
 
 ### To-Do Lits
 
+- [ ] expo-app eslinting fix
 - [x] ESLinting
 - [ ] Lint Stage
 - [ ] husky

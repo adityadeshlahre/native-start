@@ -38,44 +38,59 @@ jobs:
         run: |
           docker-compose -f dev.docker-compose.yml build
 
-      - name: Build Prod Docker images using Docker Compose for web & server
+      - name: Build Prod Docker images using Docker Compose for web & server & api
         run: |
           docker-compose -f prod.docker-compose.yml build
 
       - name: Push dev web service image
         run: |
-          docker tag next-start-web-dev:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-web-dev:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-web-dev:latest
+          docker tag native-start-web-dev:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-web-dev:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-web-dev:latest
 
       - name: Push dev server service image
         run: |
-          docker tag next-start-docs-dev:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-docs-dev:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-docs-dev:latest
+          docker tag native-start-docs-dev:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-docs-dev:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-docs-dev:latest
+
+      - name: Push dev api service image
+        run: |
+          docker tag native-start-api-dev:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-api-dev:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-api-dev:latest
 
       - name: Push prod web service image
         run: |
-          docker tag next-start-web-prod:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-web-prod:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-web-prod:latest
+          docker tag native-start-web-prod:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-web-prod:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-web-prod:latest
 
       - name: Push prod server service image
         run: |
-          docker tag next-start-docs-prod:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-docs-prod:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-docs-prod:latest
+          docker tag native-start-docs-prod:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-docs-prod:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-docs-prod:latest
+
+      - name: Push prod api service image
+        run: |
+          docker tag native-start-api-prod:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-api-prod:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-api-prod:latest
 
       - name: Push web service image
         run: |
-          docker tag next-start-web:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-web:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-web:latest
+          docker tag native-start-web:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-web:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-web:latest
 
       - name: Push server service image
         run: |
-          docker tag next-start-docs:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-docs:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-docs:latest
+          docker tag native-start-docs:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-docs:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-docs:latest
 
-      - name: Push full web-server image
+      - name: Push api service image
         run: |
-          docker tag next-start-full:latest ${{ secrets.DOCKERHUB_USERNAME }}/next-start-full:latest
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/next-start-full:latest
+          docker tag native-start-api:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-api:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-api:latest
+
+      - name: Push full web-api-server image
+        run: |
+          docker tag native-start-full:latest ${{ secrets.DOCKERHUB_USERNAME }}/native-start-full:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/native-start-full:latest
 
   render_deploy:
     name: Deploy to render
