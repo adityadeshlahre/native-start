@@ -41,6 +41,27 @@ services:
     networks:
       - app_network
 
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/docs/Dockerfile.prod
+    image: native-start-api-prod:latest
+    container_name: native-start-api-prod
+    expose:
+      - 3002
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./apps/api/:/app/apps/api
+    environment:
+      - DATABASE_URL=postgresql://opensource:sourceopen@postgres:5432/fasoshop
+      - PORT=3002
+      - UI_PORT=5173
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
   postgres:
     image: postgres:latest
     container_name: opensource-temp

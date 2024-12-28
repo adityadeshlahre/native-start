@@ -47,8 +47,8 @@ services:
       dockerfile: ./apps/api/Dockerfile.build
       args:
         DATABASE_URL: ${DATABASE_URL}
-    image: native-start-api:latest
-    container_name: native-start-api
+    image: native-start-api-dev:latest
+    container_name: native-start-api-dev
     expose:
       - 3002
     ports:

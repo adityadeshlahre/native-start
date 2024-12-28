@@ -30,11 +30,11 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml build
 
-      - name: Build Docker images using Docker Compose for web & server
+      - name: Build Docker images using Docker Compose for web & server & api
         run: |
           docker-compose -f build.docker-compose.yml build --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }}
 
-      - name: Build Dev Docker images using Docker Compose for full setup
+      - name: Build Dev Docker images using Docker Compose for web & server & api
         run: |
           docker-compose -f dev.docker-compose.yml build
 
@@ -115,5 +115,15 @@ jobs:
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           service-id: ${{ secrets.SERVICE_ID_WEB }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true
+
+      - name: Sleep for 5 seconds before deploying api Service
+        run: sleep 5
+
+      - name: Deploy api Service to Render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_ID_API }}
           api-key: ${{ secrets.RENDER_API_KEY }}
           wait-for-success: true
