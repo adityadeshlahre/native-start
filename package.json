@@ -21,9 +21,7 @@
     "type-check": "turbo type-check",
     "clean": "rimraf ./node_modules ./packages/ui/node_modules ./apps/node_modules ./apps/docs/node_modules ./apps/web/node_modules ./packages/database/node_modules ./packages/types/node_modules ./packages/config-tailwind/node_modules ./packages/config-eslint/node_modules ./packages/config-typescript/node_modules ./pnpm-lock.yaml ./apps/api/node_modules ./apps/api/dist ./apps/native/node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky",
-    "package:update": "pnpm update --latest",
-    "postinstall": "husky && pnpm run db:generate"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

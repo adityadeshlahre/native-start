@@ -36,8 +36,8 @@ ENV DATABASE_URL=${DATABASE_URL}
 RUN pnpx prisma generate --schema=./packages/database/prisma/schema.prisma
 RUN pnpx prisma migrate deploy --schema=./packages/database/prisma/schema.prisma
 RUN mkdir -p /app/.prisma
-RUN cp -r ./node_modules/.pnpm/@prisma+client@6.0.1_prisma@6.0.1/node_modules/@prisma/client /app/.prisma
-RUN cp -r ./node_modules/.pnpm/@prisma+client@6.0.1_prisma@6.0.1/node_modules/.prisma /app/node_modules/.prisma
+RUN cp -r ./node_modules/.pnpm/@prisma+client@6.1.0_prisma@6.1.0/node_modules/@prisma/client /app/.prisma
+RUN cp -r ./node_modules/.pnpm/@prisma+client@6.1.0_prisma@6.1.0/node_modules/.prisma /app/node_modules/.prisma
 RUN pnpm turbo run build --filter=web...
 
 FROM base AS runner
@@ -82,6 +82,6 @@ ENV NODE_ENV production
 # CMD ["pnpm", "dev"]
 # CMD node apps/web/server.js
 # CMD  HOSTNAME="0.0.0.0" node ./apps/web/server.js
-# CMD ["node", "./apps/web/.next/standalone/apps/web/server.js"]
-CMD ["node", "./apps/web/server.js"]
+CMD ["node", "./apps/web/.next/standalone/apps/web/server.js"]
+# CMD ["node", "./apps/web/server.js"]
 # CMD ["sh", "-c", "pnpm run db:deploy && node ./apps/web/server.js"]

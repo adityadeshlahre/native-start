@@ -1,5 +1,7 @@
 FROM node:22-alpine AS base
 
+RUN apk add --no-cache openssl
+
 FROM base AS builder
 ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="${PATH}:${PNPM_HOME}"
@@ -54,4 +56,4 @@ EXPOSE 3000
 
 CMD ["sh", "-c", "pnpm db:generate && pnpm db:push && pnpm db:resolve && pnpm db:deploy"]
 
-CMD ["sh", "-c", "cd apps/api && pnpm dev"]
+CMD ["sh", "-c", "cd apps/api && pnpm build && pnpm start"]
