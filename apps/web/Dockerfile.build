@@ -82,6 +82,6 @@ ENV NODE_ENV production
 # CMD ["pnpm", "dev"]
 # CMD node apps/web/server.js
 # CMD  HOSTNAME="0.0.0.0" node ./apps/web/server.js
-CMD ["node", "./apps/web/.next/standalone/apps/web/server.js"]
+CMD ["node", "/app/apps/web/.next/standalone/apps/web/server.js"]
 # CMD ["node", "./apps/web/server.js"]
 # CMD ["sh", "-c", "pnpm run db:deploy && node ./apps/web/server.js"]
