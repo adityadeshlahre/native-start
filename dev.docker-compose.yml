@@ -3,8 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
-    image: next-start-web-dev:latest
-    container_name: next-start-web-dev
+    image: native-start-web-dev:latest
+    container_name: native-start-web-dev
     expose:
       - 3000
     ports:
@@ -24,8 +24,8 @@ services:
     build:
       context: .
       dockerfile: ./apps/docs/Dockerfile
-    image: next-start-docs-dev:latest
-    container_name: next-start-docs-dev
+    image: native-start-docs-dev:latest
+    container_name: native-start-docs-dev
     expose:
       - 3001
     ports:
@@ -35,6 +35,29 @@ services:
     environment:
       - DATABASE_URL=postgresql://opensource:sourceopen@postgres:5432/fasoshop
       - PORT=3001
+      - UI_PORT=5173
+    depends_on:
+      - postgres
+    networks:
+      - app_network
+
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile.build
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    image: native-start-api:latest
+    container_name: native-start-api
+    expose:
+      - 3002
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./apps/api/:/app/apps/api
+    environment:
+      - DATABASE_URL=postgresql://opensource:sourceopen@postgres:5432/fasoshop
+      - PORT=3002
       - UI_PORT=5173
     depends_on:
       - postgres

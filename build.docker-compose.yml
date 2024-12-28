@@ -5,8 +5,8 @@ services:
       dockerfile: ./apps/web/Dockerfile.build
       args:
         DATABASE_URL: ${DATABASE_URL}
-    image: next-start-web:latest
-    container_name: next-start-web
+    image: native-start-web:latest
+    container_name: native-start-web
     expose:
       - 3000
     ports:
@@ -24,14 +24,33 @@ services:
       dockerfile: ./apps/docs/Dockerfile.build
       args:
         DATABASE_URL: ${DATABASE_URL}
-    image: next-start-docs:latest
-    container_name: next-start-docs
+    image: native-start-docs:latest
+    container_name: native-start-docs
     expose:
       - 3001
     ports:
       - "3001:3001"
     volumes:
       - ./apps/docs/:/app/apps/docs
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    networks:
+      - app_network
+
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile.build
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    image: native-start-api:latest
+    container_name: native-start-api
+    expose:
+      - 3002
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./apps/api/:/app/apps/api
     environment:
       - DATABASE_URL=${DATABASE_URL}
     networks:

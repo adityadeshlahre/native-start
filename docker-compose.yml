@@ -3,8 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: next-start-full:latest
-    container_name: next-start-full
+    image: native-start-full:latest
+    container_name: native-start-full
     expose:
       - 3000
       - 3001
@@ -14,6 +14,7 @@ services:
     volumes:
       - ./apps/web/:/app/apps/web
       - ./apps/docs/:/app/apps/docs
+      - ./apps/api/:/app/apps/api
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - PORT=${PORT}

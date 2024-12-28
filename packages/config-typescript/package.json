@@ -10,6 +10,8 @@
   "files": [
     "base.json",
     "nextjs.json",
-    "react-library.json"
+    "react-library.json",
+    "react-native-library.json",
+    "expo-app.json"
   ]
 }

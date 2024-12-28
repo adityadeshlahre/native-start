@@ -3,8 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile.prod
-    image: next-start-web-prod:latest
-    container_name: next-start-web-prod
+    image: native-start-web-prod:latest
+    container_name: native-start-web-prod
     expose:
       - 5173
     ports:
@@ -24,8 +24,8 @@ services:
     build:
       context: .
       dockerfile: ./apps/docs/Dockerfile.prod
-    image: next-start-docs-prod:latest
-    container_name: next-start-docs-prod
+    image: native-start-docs-prod:latest
+    container_name: native-start-docs-prod
     expose:
       - 3000
     ports:

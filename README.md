@@ -2,9 +2,9 @@
 
 This is my personal prefered stack for for starting simple full stack projects in one go. Initalized with turborepo in furhter i have added all the stacks along the way.
 
-### Web Live URL [here](https://next-start-web.onrender.com)
+### Web Live URL [here](https://native-start-web.onrender.com)
 
-### Docs Live URL [here](https://next-start-docs.onrender.com)
+### Docs Live URL [here](https://native-start-docs.onrender.com)
 
 > [!IMPORTANT]  
 > This is using `pnpm` as package manager.
@@ -50,9 +50,9 @@ packages{folder}
 ### Getting Started
 
 ```bash
-bun create next-app -e "https://github.com/adityadeshlahre/next-start" <project-name>
+bun create native-app -e "https://github.com/adityadeshlahre/native-start" <project-name>
 
-npx create-next-app -e "https://github.com/adityadeshlahre/next-start" <project-name>
+npx create-native-app -e "https://github.com/adityadeshlahre/native-start" <project-name>
 ```
 
 <p align="center" style="font-weight: bold;">OR</p>
@@ -66,9 +66,9 @@ bun i -g degit || pnpm i -g degit || yarn global add degit || npm i -g degit
 **Create a new project from this template**
 
 ```bash
-degit adityadeshlahre/next-start <project-name>
+degit adityadeshlahre/native-start <project-name>
 # using GH cli
-gh repo create <project-name> --template <adityadeshlahre>/<next-start> --public
+gh repo create <project-name> --template <adityadeshlahre>/<native-start> --public
 
 cd <project-name>
 ```
