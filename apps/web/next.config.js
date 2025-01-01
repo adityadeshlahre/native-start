@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const { PrismaPlugin } = require("@prisma/nextjs-monorepo-workaround-plugin");
+const path = require("path");
 module.exports = {
   output: "standalone",
   productionBrowserSourceMaps: false,
