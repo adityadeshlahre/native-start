@@ -4,4 +4,5 @@ module.exports = {
   transpilePackages: ["@repo/ui", "@repo/types"],
   output: "standalone",
   productionBrowserSourceMaps: false,
+  basePath: "/docs",
 };
