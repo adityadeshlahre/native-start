@@ -18,4 +18,5 @@ module.exports = {
     return config;
   },
   basePath: "/web",
+  outputFileTracingRoot: path.join(__dirname, "./../../"),
 };
