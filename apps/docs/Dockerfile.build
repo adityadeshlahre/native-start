@@ -59,8 +59,11 @@ WORKDIR /app
 COPY --from=installer /app/apps/docs/.next/standalone ./
 COPY --from=installer /app/apps/docs/.next/standalone ./next/standalone
 COPY --from=installer /app/apps/docs/.next/static ./apps/docs/.next/static
+COPY --from=installer /app/apps/docs/.next/static ./next/standalone/apps/docs/.next/static
+COPY --from=installer /app/apps/docs/.next/static ./next/standalone/apps/docs/static
 COPY --from=installer /app/apps/docs/.next/static ./apps/docs/.next/standalone/apps/docs/.next/static
 COPY --from=installer /app/apps/docs/public ./apps/docs/public
+COPY --from=installer /app/apps/docs/public ./next/standalone/apps/docs/public
 COPY --from=installer /app/apps/docs/public ./apps/docs/.next/standalone/apps/docs/public
 
 ENV PORT=3001

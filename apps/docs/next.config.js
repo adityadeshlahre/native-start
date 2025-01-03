@@ -7,7 +7,5 @@ module.exports = {
   transpilePackages: ["@repo/ui"],
   productionBrowserSourceMaps: false,
   basePath: "/docs",
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, "./../../"),
-  },
+  // outputFileTracingRoot: path.join(__dirname, "./../../"),
 };
