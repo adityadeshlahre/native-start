@@ -1,4 +1,4 @@
-FROM node:23.5-alpine AS base
+FROM node:22-alpine AS base
 
 RUN apk add --no-cache openssl
 
@@ -86,8 +86,8 @@ ENV NODE_ENV production
 # CMD ["pnpm", "dev"]
 # CMD node apps/web/server.js
 # CMD  HOSTNAME="0.0.0.0" node ./apps/web/server.js
-CMD ["node", "./apps/web/.next/standalone/apps/web/server.js"]
+# CMD ["node", "./apps/web/.next/standalone/apps/web/server.js"]
 # CMD node /app/apps/web/.next/standalone/apps/web/server.js
 # CMD node next/standalone/apps/web/server.js
-# CMD ["node", "./apps/web/server.js"]
+CMD ["node", "./apps/web/server.js"]
 # CMD ["sh", "-c", "pnpm run db:deploy && node ./apps/web/server.js"]
