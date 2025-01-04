@@ -1,10 +1,10 @@
 FROM node:23.5-alpine AS base
 
+RUN apk add --no-cache openssl
+
 FROM base AS builder
 
-RUN apk add --no-cache libc6-compat
-
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_PRIVATE_STANDALONE=true
 
 ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="${PATH}:${PNPM_HOME}"
@@ -18,16 +18,12 @@ RUN turbo prune --scope=docs --docker
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
 
-RUN apk add --no-cache libc6-compat
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
 ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="${PATH}:${PNPM_HOME}"
 
 RUN npm install --global pnpm@latest 
 
-RUN pnpm add -g turbo nodemon dotenv dotenv-cli
+# RUN pnpm add -g turbo nodemon dotenv dotenv-cli
 
 WORKDIR /app
 
@@ -35,16 +31,18 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+
+RUN corepack enable
+RUN pnpm i
+
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
-
-RUN pnpm i
 
 RUN pnpm turbo run build --filter=docs...
 
 FROM base AS runner
 
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_TELEMETRY_DISABLED 1
 
 ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="${PATH}:${PNPM_HOME}"
@@ -57,13 +55,7 @@ WORKDIR /app
 
 # COPY --from=installer /app .
 COPY --from=installer /app/apps/docs/.next/standalone ./
-COPY --from=installer /app/apps/docs/.next/standalone ./next/standalone
-COPY --from=installer /app/apps/docs/.next/static ./apps/docs/.next/static
-COPY --from=installer /app/apps/docs/.next/static ./next/standalone/apps/docs/.next/static
-COPY --from=installer /app/apps/docs/.next/static ./next/standalone/apps/docs/static
 COPY --from=installer /app/apps/docs/.next/static ./apps/docs/.next/standalone/apps/docs/.next/static
-COPY --from=installer /app/apps/docs/public ./apps/docs/public
-COPY --from=installer /app/apps/docs/public ./next/standalone/apps/docs/public
 COPY --from=installer /app/apps/docs/public ./apps/docs/.next/standalone/apps/docs/public
 
 ENV PORT=3001

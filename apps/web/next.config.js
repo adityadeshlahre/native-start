@@ -18,6 +18,6 @@ module.exports = {
     config.cache = false;
     return config;
   },
-  basePath: "/web",
-  // outputFileTracingRoot: path.join(__dirname, "./../../"),
+  // basePath: "/web",
+  outputFileTracingRoot: path.join(__dirname, "./../../"),
 };
